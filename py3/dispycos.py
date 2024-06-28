@@ -386,7 +386,8 @@ class Client(object):
         def _nodes(self, task=None):
             msg = {'req': 'nodes', 'auth': self._auth, 'reply_task': task}
             if (yield self.__scheduler.deliver(msg, timeout=MsgTimeout)) == 1:
-                return yield task.receive(MsgTimeout)
+                rec = yield task.receive(MsgTimeout)
+                return rec
             else:
                 raise StopIteration([])
 
@@ -400,7 +401,8 @@ class Client(object):
         def _servers(self, task=None):
             msg = {'req': 'servers', 'auth': self._auth, 'reply_task': task}
             if (yield self.__scheduler.deliver(msg, timeout=MsgTimeout)) == 1:
-                return yield task.receive(MsgTimeout)
+                rec = yield task.receive(MsgTimeout)
+                return rec
             else:
                 raise StopIteration([])
 
@@ -421,7 +423,8 @@ class Client(object):
         def _tasks(self, task=None):
             msg = {'req': 'tasks', 'auth': self._auth, 'reply_task': task, 'at': addr}
             if (yield self.__scheduler.deliver(msg, timeout=MsgTimeout)) == 1:
-                return yield task.receive(MsgTimeout)
+                rec =  yield task.receive(MsgTimeout)
+                return rec
             else:
                 raise StopIteration([])
 
